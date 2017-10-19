@@ -5,11 +5,21 @@
     <title>Title</title>
     <script src="jquery.min.js" type="application/javascript"></script>
     <style>
-        .model{background-color: red}
+        .model{background-color: red;}
+        html *{margin: 0;padding: 0;}
+        html body .bg{height: 100%;width: 100%;overflow: hidden;position: absolute}
+        .bg{background-color: aquamarine}
     </style>
 </head>
 <body>
-<div id="test">test</div>
+模态框和非模态框自由切换
+<div class="bg">
+    <button onclick="show()">show</button>
+    <button onclick="hide()">hide</button>
+    <button onclick="destory()">destory</button>
+    <div id="test">test</div>
+</div>
+
 <script>
     (function ($) {
         var methods = {
@@ -27,7 +37,6 @@
                 //...
             },
             show: function () {
-
                 this.show();
             },
             hide: function () {
@@ -39,14 +48,21 @@
         };
         var options={
             'width':'400px',
-            'height':'400px'
+            'height':'300px',
+            'margin': '0 auto',
+            'position':'absolute',
+            'top':'50%',
+            'left':'50%',
+            'margin-top':'-150px',
+            'margin-left':'-200px'
         };
         var settings = $.extend({
             'location': 'top',
-            'background-color': 'blue'
+            'border':'1px solid #000',
+            'z-index':'999',
+            'background-color':'blue'
         }, options);
         $.fn.tooltip = function (method) {
-            console.log(settings);
             $(this).css(settings);
             if (methods[method]) {
                 return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
@@ -57,7 +73,17 @@
             }
         };
     })(jQuery);
-    $('#test').tooltip("show");
+
+
+    function show() {
+        $('#test').tooltip("show");
+    }
+    function hide() {
+        $('#test').tooltip("hide");
+    }
+    function destory() {
+        $('#test').tooltip("destory");
+    }
 </script>
 </body>
 </html>
